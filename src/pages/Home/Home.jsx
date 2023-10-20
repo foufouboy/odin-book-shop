@@ -5,37 +5,52 @@ import AsideImage from "../../assets/Home/home-bg.jpg";
 const Home = () => {
     return (
         <StyledHome>
-            <div className="hero">
-                <header>
-                    <div className="title">
-                        <img src={Icon} alt="site icon"/>
-                        <h1>Babel. </h1>
-                    </div>
-                    <button>Get in</button>
-                </header>
-                <p className="app-description">Book manager & Book shop</p>
-                <h2 className="phrase">
-                    The easiest way to enjoy your books.
-                </h2>
-                <footer>
-                    <p>Welcome to the most <i>infinite</i> library of your dreams. You'll never want to get out.</p>
-                    <button>Enter the library</button>
-                </footer>
+            <div className="home-root">
+                <div className="hero">
+                    <header>
+                        <div className="title">
+                            <img src={Icon} alt="site icon"/>
+                            <h1>Babel. </h1>
+                        </div>
+                        <button>Get in</button>
+                    </header>
+                    <p className="app-description">Book manager & Book shop</p>
+                    <h2 className="phrase">
+                        The easiest way to enjoy your books.
+                    </h2>
+                    <footer>
+                        <p>Welcome to the most <i>infinite</i> library of your dreams. You'll never want to get out.</p>
+                        <button>Enter the library</button>
+                    </footer>
+                </div>
+                <img src={AsideImage} alt="babel library" />
             </div>
-            <img src={AsideImage} alt="babel library" />
         </StyledHome>       
     );
 }
 
 const StyledHome = styled.div`
-    background-color: var(--dark-blue);
-    color: var(--beige);
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    padding: 30px;
-    height: 100%;
-    min-height: 100vh;
     cursor: default;
+    background-color: var(--dark-blue);
+
+    .home-root {
+        color: var(--beige);
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        padding: 30px;
+        height: 100%;
+        min-height: 100vh;
+        margin: auto;
+        max-width: 1440px;
+
+        & > img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            box-shadow: 
+                10px 10px var(--dark-grey);
+        }
+    }
 
     .hero {
         display: flex;
@@ -125,6 +140,54 @@ const StyledHome = styled.div`
 
     footer button {
         padding: 6px 20px;
+    }
+
+    @media (max-width: 1000px) {
+        footer {
+            flex-flow: column;
+            text-align: center;
+
+            button {
+                width: 100%;
+            }
+        }
+    }
+
+    @media (max-width: 900px) {
+        .home-root {
+            grid-template-columns: 1fr;
+            grid-template-rows: 200px 1fr;
+            padding: 0;
+            align-items: center;
+
+            & > img {
+                grid-row: 1 / 2;
+                box-shadow: unset;
+                padding: 0;
+            }
+        }
+
+        .hero {
+            align-items: center;
+        }
+
+        .phrase {
+            text-align: center;
+            font-size: 3.8rem;
+        }
+
+        .hero > p {
+            align-self: initial;
+        }
+
+        header {
+            margin-top: 30px;
+            margin-bottom: 80px;
+        }
+        
+        footer {
+            margin-top: 90px;
+        }
     }
 `;
 
