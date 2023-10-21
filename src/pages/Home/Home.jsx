@@ -1,16 +1,42 @@
 import styled from "styled-components";
+import { Fade } from "react-slideshow-image";
+import { useState, useEffect } from "react";
 import Icon from "../../assets/Home/icon.svg";
-import AsideImage from "../../assets/Home/home-bg.jpg";
+import images from "./images";
+import { combineLetters } from "./home-functions";
 
 const Home = () => {
+    const [title, setTitle] = useState("Babel.");
+    const [titleInterval, setTitleInterval] = useState(null);
+    const [hover, setHover] = useState(false);
+
+    useEffect(() => {
+        if (hover) {
+            const interval = setInterval(() => {
+                setTitle(combineLetters());
+            }, 50)
+            setTitleInterval(interval);
+        } else {
+            if (titleInterval) {
+                clearInterval(titleInterval);
+                setTitleInterval(null);
+                setTitle("Babel.");
+            }
+        }
+    }, [hover]);
+    
     return (
         <StyledHome>
             <div className="home-root">
                 <div className="hero">
                     <header>
-                        <div className="title">
+                        <div 
+                        className="title"
+                        onMouseEnter={() => setHover(true)}
+                        onMouseLeave={() => setHover(false)}
+                        >
                             <img src={Icon} alt="site icon"/>
-                            <h1>Babel. </h1>
+                            <h1>{title} </h1>
                         </div>
                         <button>Get in</button>
                     </header>
@@ -23,7 +49,8 @@ const Home = () => {
                         <button>Enter the library</button>
                     </footer>
                 </div>
-                <img src={AsideImage} alt="babel library" />
+                <img src={images[0]} 
+                alt={"illustration image"}/>
             </div>
         </StyledHome>       
     );
