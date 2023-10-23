@@ -20,6 +20,11 @@ const GlobalStyles = createGlobalStyle`
         background-color: var(--dark-blue);
         color: var(--beige);
     }
+    
+    #root {
+        margin: auto;
+        max-width: 1440px;
+    }
 
     a {
         color: inherit;

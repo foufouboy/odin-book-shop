@@ -47,8 +47,6 @@ const StyledHome = styled.div`
         padding: 30px;
         height: 100%;
         min-height: 100vh;
-        margin: auto;
-        max-width: 1440px;
 
         & > img {
             width: 100%;
