@@ -8,8 +8,22 @@ const GlobalStyles = createGlobalStyle`
         scroll-behavior: smooth;
     }
 
+    body::-webkit-scrollbar {
+        -ms-overflow-style: none;
+        display: none;
+    }
+
     body {
+        // Default styles :
+
         font-family: "Source Serif 4";
+        background-color: var(--dark-blue);
+        color: var(--beige);
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
     }
 
     :root {

@@ -4,6 +4,7 @@
  } from "react-router-dom";
 
  import Home from "./pages/Home/Home";
+ import Library from "./pages/Library/Library";
  import ErrorPage from "./pages/ErrorPage";
  
  const Router = () => {
@@ -12,6 +13,10 @@
             path: "/",
             element: <Home/>,
             errorElement: <ErrorPage/>,
+        },
+        {
+            path: "/library",
+            element: <Library/>,
         },
     ]);
 

@@ -1,44 +1,22 @@
 import styled from "styled-components";
-import { Fade } from "react-slideshow-image";
-import { useState, useEffect } from "react";
-import Icon from "../../assets/Home/icon.svg";
-import images from "./images";
-import { combineLetters } from "./home-functions";
+import { Link } from "react-router-dom";
+import Title from "../../components/Title";
+
+import Aside from "../../assets/Home/aside-0.jpg";
 
 const Home = () => {
-    const [title, setTitle] = useState("Babel.");
-    const [titleInterval, setTitleInterval] = useState(null);
-    const [hover, setHover] = useState(false);
 
-    useEffect(() => {
-        if (hover) {
-            const interval = setInterval(() => {
-                setTitle(combineLetters());
-            }, 50)
-            setTitleInterval(interval);
-        } else {
-            if (titleInterval) {
-                clearInterval(titleInterval);
-                setTitleInterval(null);
-                setTitle("Babel.");
-            }
-        }
-    }, [hover]);
-    
     return (
         <StyledHome>
             <div className="home-root">
                 <div className="hero">
                     <header>
-                        <div 
-                        className="title"
-                        onMouseEnter={() => setHover(true)}
-                        onMouseLeave={() => setHover(false)}
-                        >
-                            <img src={Icon} alt="site icon"/>
-                            <h1>{title} </h1>
-                        </div>
-                        <button>Get in</button>
+                        <Title/>
+                        <button>
+                            <Link to="/library">
+                                Get in
+                            </Link>
+                        </button>
                     </header>
                     <p className="app-description">Book manager & Book shop</p>
                     <h2 className="phrase">
@@ -46,10 +24,14 @@ const Home = () => {
                     </h2>
                     <footer>
                         <p>Welcome to the most <i>infinite</i> library of your dreams. You'll never want to get out.</p>
-                        <button>Enter the library</button>
+                        <button>
+                            <Link to="/library">
+                                Enter the library
+                            </Link>
+                        </button>
                     </footer>
                 </div>
-                <img src={images[0]} 
+                <img src={Aside} 
                 alt={"illustration image"}/>
             </div>
         </StyledHome>       
@@ -58,10 +40,8 @@ const Home = () => {
 
 const StyledHome = styled.div`
     cursor: default;
-    background-color: var(--dark-blue);
 
     .home-root {
-        color: var(--beige);
         display: grid;
         grid-template-columns: 3fr 2fr;
         padding: 30px;
@@ -92,21 +72,6 @@ const StyledHome = styled.div`
         margin-bottom: 150px;
         align-items: center;
         gap: 30px;
-    }
-
-    h1 {
-        font-size: 2.5rem;
-    }
-
-    .title {
-        display: flex;
-        gap: 15px;
-        align-items: center;
-        cursor: pointer;
-
-        img {
-            height: 40px;
-        }
     }
 
     footer {
