@@ -40,7 +40,7 @@ const StyledLibrary = styled(motion.div)`
         justify-content: space-between;
         justify-items: center;
         align-items: center;
-        padding: 45px 60px;
+        padding: 45px 45px;
 
         .search-container {
             position: relative;
