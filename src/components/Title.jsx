@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { combineLetters } from "../pages/Home/home-functions";
 import Icon from "../assets/Home/icon.svg";
 
-const Title = ({animate = true}) => {
+const Title = ({animate = false}) => {
     const [title, setTitle] = useState("Babel.");
     const [titleInterval, setTitleInterval] = useState(null);
     const [hover, setHover] = useState(false);
@@ -45,6 +45,7 @@ const StyledTitle = styled.div`
     align-items: center;
     cursor: pointer;
     color: var(--beige);
+    z-index: 5;
 
     img {
         height: 40px;
