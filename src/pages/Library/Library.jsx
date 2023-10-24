@@ -35,14 +35,16 @@ const Library = () => {
 
 const StyledLibrary = styled(motion.div)`
     header {
-        display: flex;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
         justify-content: space-between;
+        justify-items: center;
         align-items: center;
         padding: 45px 60px;
 
         .search-container {
             position: relative;
-            width: 50%;
+            width: 70%;
 
             svg {
                 position: absolute;
@@ -100,6 +102,31 @@ const StyledLibrary = styled(motion.div)`
             }
         }
     }
+
+@media (max-width: 750px) {
+    header {
+        grid-auto-flow: row;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        row-gap: 10px;
+        justify-content: space-between;
+
+        .search-container {
+            grid-row: 2 / 3;
+            grid-column: 1 / 3;
+            width: 100%;
+        }
+
+        .title {
+            justify-self: start;
+        }
+
+        .cart-container {
+            justify-self: end;
+        }
+    }
+
+}
 
 `
 
