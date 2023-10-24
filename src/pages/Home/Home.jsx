@@ -1,11 +1,16 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { 
+    Link,
+    useNavigate,
+ } from "react-router-dom";
 import Title from "../../components/Title";
 import { motion } from "framer-motion";
 import Aside from "../../assets/Home/aside-0.jpg";
 import withAnimation from "../../components/withAnimation";
 
 const Home = () => {
+    const navigate = useNavigate();
+
     return (
         <StyledHome
         initial={{ opacity: 0, x: -25 }}
@@ -16,10 +21,9 @@ const Home = () => {
                 <div className="hero">
                     <header>
                         <Title/>
-                        <button>
-                            <Link to="/library">
+                        <button
+                        onClick={() => navigate("/library")}>
                                 Get in
-                            </Link>
                         </button>
                     </header>
                     <p className="app-description">Book manager & Book shop</p>
@@ -28,10 +32,9 @@ const Home = () => {
                     </h2>
                     <footer>
                         <p>Welcome to the most <i>infinite</i> library of your dreams. You'll never want to get out.</p>
-                        <button>
-                            <Link to="/library">
+                        <button
+                        onClick={() => navigate("/library")}>
                                 Enter the library
-                            </Link>
                         </button>
                     </footer>
                 </div>
