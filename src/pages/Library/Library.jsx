@@ -1,9 +1,16 @@
 import styled from "styled-components";
 import Title from "../../components/Title";
+import { motion } from "framer-motion";
+import withAnimation from "../../components/withAnimation";
 
 const Library = () => {
     return (
-        <StyledLibrary>
+        <StyledLibrary
+        initial={{ opacity: 0, x: -25 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6 }}
+        exit={{ opacity: 0, x: -25 }}
+        >
             <header>
                 <Title/>
                 <div className="search-container">
@@ -20,7 +27,7 @@ const Library = () => {
     );
 }
 
-const StyledLibrary = styled.div`
+const StyledLibrary = styled(motion.div)`
     header {
         display: flex;
         justify-content: space-between;
@@ -29,4 +36,4 @@ const StyledLibrary = styled.div`
     }
 `
 
-export default Library;
+export default withAnimation(Library);

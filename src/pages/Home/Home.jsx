@@ -1,13 +1,17 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Title from "../../components/Title";
-
+import { motion } from "framer-motion";
 import Aside from "../../assets/Home/aside-0.jpg";
+import withAnimation from "../../components/withAnimation";
 
 const Home = () => {
-
     return (
-        <StyledHome>
+        <StyledHome
+        initial={{ opacity: 0, x: -25 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6 }}
+        exit={{ opacity: 0, x: -25 }}>
             <div className="home-root">
                 <div className="hero">
                     <header>
@@ -38,7 +42,7 @@ const Home = () => {
     );
 }
 
-const StyledHome = styled.div`
+const StyledHome = styled(motion.div)`
     cursor: default;
 
     .home-root {
@@ -181,4 +185,4 @@ const StyledHome = styled.div`
     }
 `;
 
-export default Home;
+export default withAnimation(Home);

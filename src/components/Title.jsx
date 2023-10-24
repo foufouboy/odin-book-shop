@@ -44,6 +44,7 @@ const StyledTitle = styled.div`
     gap: 15px;
     align-items: center;
     cursor: pointer;
+    color: var(--beige);
 
     img {
         height: 40px;
