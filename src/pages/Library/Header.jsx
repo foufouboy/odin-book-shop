@@ -33,6 +33,7 @@ grid-template-columns: auto 1fr auto;
 justify-content: space-between;
 justify-items: center;
 align-items: center;
+margin-bottom: 30px;
 
 .search-container {
     position: relative;
@@ -109,7 +110,6 @@ input:focus + svg {
 
     .title {
         justify-self: start;
-
     }
 
     .cart-container {

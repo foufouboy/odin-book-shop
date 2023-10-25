@@ -25,14 +25,14 @@ const categoriesData = [
         color: "#e22794",
     },
     {
-        title: "Biography",
-        icon: <BsClockHistory/>,
-        color: "#8cd811",
-    },
-    {
         title: "SciFi",
         icon: <GiRobotGolem/>,
         color: "#93B3FF",
+    },
+    {
+        title: "Biography",
+        icon: <BsClockHistory/>,
+        color: "#8cd811",
     },
     {
         title: "Thriller",

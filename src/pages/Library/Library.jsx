@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Header from "./Header";
 import BabelCarousel from "./BabelCarousel";
+import Description from "./Description";
 import { motion } from "framer-motion";
 import withAnimation from "../../components/withAnimation";
 
@@ -13,6 +14,7 @@ const Library = () => {
         exit={{ opacity: 0, x: -25 }}
         >
             <Header/>
+            <Description/>
             <BabelCarousel/>
         </StyledLibrary>
     );
