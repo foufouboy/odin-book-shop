@@ -6,11 +6,13 @@ import {
     ButtonBack,
     ButtonNext,
 } from "pure-react-carousel";
+import "pure-react-carousel/dist/react-carousel.es.css";
 import { 
     BiSolidChevronRight,
     BiSolidChevronLeft,
 } from "react-icons/bi";
-import "pure-react-carousel/dist/react-carousel.es.css";
+import CategoryCard from "./CategoryCard";
+import categoriesData from "./category-cards-data";
 import useWindowDimensions from "../../utils/useWindowDimensions";
 import { useEffect, useState } from "react";
 
@@ -24,7 +26,6 @@ const getVisibleSlides = (width) => {
 const BabelCarousel = () => {
     const [visibleSlides, setVisibleSlides] = useState();
     const { width, height } = useWindowDimensions();
-    console.log(visibleSlides);
 
     useEffect(() => {
         setVisibleSlides(getVisibleSlides(width));
@@ -35,7 +36,7 @@ const BabelCarousel = () => {
         <StyledBabelCarousel>
             <CarouselProvider
             naturalSlideHeight={50}
-            naturalSlideWidth={40}
+            naturalSlideWidth={50}
             totalSlides={10}
             visibleSlides={visibleSlides}
             dragEnabled={true}
@@ -43,21 +44,16 @@ const BabelCarousel = () => {
                 <div className="category-and-buttons">
                     <h3>Categories</h3> 
                     <div className="buttons">
-                        <ButtonBack><BiSolidChevronLeft size="23px"/></ButtonBack>
-                        <ButtonNext><BiSolidChevronRight size="23px"/></ButtonNext>
+                        <ButtonBack><BiSolidChevronLeft size="20px"/></ButtonBack>
+                        <ButtonNext><BiSolidChevronRight size="20px"/></ButtonNext>
                     </div>
                 </div>
                 <Slider classNameTray="slides-container">
-                        <Slide index={0}><p>I am.</p></Slide>
-                        <Slide index={1}><p>I am.</p></Slide>
-                        <Slide index={2}><p>I am.</p></Slide>
-                        <Slide index={3}><p>I am</p></Slide>
-                        <Slide index={4}><p>I am.</p></Slide>
-                        <Slide index={5}><p>I am.</p></Slide>
-                        <Slide index={6}><p>I am.</p></Slide>
-                        <Slide index={7}><p>I am.</p></Slide>
-                        <Slide index={8}><p>I am.</p></Slide>
-                        <Slide index={9}><p>I am.</p></Slide>
+                    {categoriesData.map((data, i) => (
+                        <Slide index={i}>
+                            <CategoryCard data={data}/>
+                        </Slide>
+                    ))}
                 </Slider>
             </CarouselProvider>
         </StyledBabelCarousel>
@@ -66,24 +62,17 @@ const BabelCarousel = () => {
 
 const StyledBabelCarousel = styled.div`
     margin-top: 30px;
-
-    p {
-        padding: 20px;
-        background: red;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
     .slides-container {
-        gap: 10px;
+        gap: 15px;
     }
+
     .category-and-buttons {
         display: flex;
         justify-content: space-between;
+        margin-bottom: 10px;
 
         h3 {
-            font-size: 1.7rem;
+            font-size: 1.4rem;
         }
 
         .buttons {
