@@ -19,7 +19,7 @@ const Library = () => {
 }
 
 const StyledLibrary = styled(motion.div)`
-    padding: 45px 45px;
+    padding: 30px 30px;
 `
 
 export default withAnimation(Library);

@@ -109,6 +109,7 @@ input:focus + svg {
 
     .title {
         justify-self: start;
+
     }
 
     .cart-container {

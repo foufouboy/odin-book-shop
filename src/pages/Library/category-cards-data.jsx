@@ -30,7 +30,7 @@ const categoriesData = [
         color: "#8cd811",
     },
     {
-        title: "Sci-Fi",
+        title: "SciFi",
         icon: <GiRobotGolem/>,
         color: "#93B3FF",
     },
