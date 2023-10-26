@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Image from "../../assets/Home/aside-3.jpeg";
 import Button from "../../components/Button";
 
-const Description = () => {
+const Description = ({toggleHandler}) => {
     return (
         <StyledDescription>
             <div className="desc-container">
@@ -13,7 +13,7 @@ const Description = () => {
                     Make yourself a human-sized stack of books to read,
                     here and <i>nowhere</i> else. Search for books, filter giving a genre or by popularity, and get that one book that will eat you alive.
                 </p>
-                <Button>
+                <Button onClick={toggleHandler}>
                     Got it!
                 </Button>
             </div>

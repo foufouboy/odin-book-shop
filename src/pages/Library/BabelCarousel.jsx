@@ -50,7 +50,7 @@ const BabelCarousel = () => {
                 </div>
                 <Slider classNameTray="slides-container">
                     {categoriesData.map((data, i) => (
-                        <Slide index={i}>
+                        <Slide index={i} key={i}>
                             <CategoryCard data={data}/>
                         </Slide>
                     ))}

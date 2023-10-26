@@ -13,14 +13,12 @@ const Header = () => {
                 type="text" 
                 className="search-bar"
                 placeholder="Search for a book..."/>
-                <AiOutlineFileSearch 
-                size="22px"/>
+                <AiOutlineFileSearch size="22px"/>
             </div>
-            <div className="cart-container">
-                <BiSolidBookHeart
-                size="32px"/>
+            <button className="cart-container">
+                <BiSolidBookHeart size="32px"/>
                 <span></span>
-            </div>
+            </button>
         </StyledHeader>
 
     );
@@ -66,7 +64,8 @@ input {
     background: rgb(100, 100, 100, .8);
 }
 
-input:focus + svg {
+input:focus + svg,
+.search-container svg:hover {
     fill: var(--beige);
 }
 
@@ -74,7 +73,13 @@ input:focus + svg {
     display: flex;
     align-items: center;
     position: relative;
+    background: 0;
+    border: 0;
 
+
+    svg {
+        fill: var(--beige);
+    }
 
     svg:hover {
         cursor: pointer;
