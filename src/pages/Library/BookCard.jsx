@@ -3,6 +3,8 @@ import { AiFillStar } from "react-icons/ai";
 import Sample from "../../assets/Home/aside-2.jpeg";
 
 const BookCard = () => {
+    const rating = 5;
+
     return (
         <StyledBookCard>
             <img src={Sample} alt="sample img"/>         
@@ -10,8 +12,9 @@ const BookCard = () => {
                 <p className="title">The Big Chinchilla</p>
                 <p className="author">Manon Gicquel</p>
                 <span className="rating">
-                    {Array(5).fill(0).map(_ => (
-                        <AiFillStar/>
+                    {Array(5).fill(0).map((_, i) => (
+                        <AiFillStar 
+                        color={i < rating ? "yellow" : "grey"}/>
                     ))}
                 </span>
             </div>
@@ -61,7 +64,6 @@ const StyledBookCard = styled.div`
             --size: 22px;
             width: var(--size);
             height: var(--size);
-            fill: yellow;
         }
     }
 

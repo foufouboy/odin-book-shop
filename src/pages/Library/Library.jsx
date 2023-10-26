@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Header from "./Header";
 import BabelCarousel from "./BabelCarousel";
 import Description from "./Description";
+import FilterDropdown from "./FilterDropdown";
 import BookCard from "./BookCard";
 import { motion } from "framer-motion";
 import withAnimation from "../../components/withAnimation";
@@ -23,6 +24,7 @@ const Library = () => {
             toggleHandler={() => setDescriptionOpen(false)}/>}
             <BabelCarousel/>
             <section className="results">
+                <FilterDropdown/>
                 <div className="cards">
                     {Array(30).fill(0).map((_, i) => (
                         <BookCard key={"book-card-" + i}/>
@@ -51,7 +53,8 @@ const StyledLibrary = styled(motion.div)`
     .cards {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        margin: auto;
+        margin: 0 auto;
+        margin-top: 15px;
         gap: 40px;
     }
 
