@@ -4,6 +4,7 @@ import {
     useNavigate,
  } from "react-router-dom";
 import Title from "../../components/Title";
+import Button from "../../components/Button";
 import { motion } from "framer-motion";
 import Aside from "../../assets/Home/aside-0.jpg";
 import withAnimation from "../../components/withAnimation";
@@ -21,10 +22,10 @@ const Home = () => {
                 <div className="hero">
                     <header>
                         <Title/>
-                        <button
+                        <Button
                         onClick={() => navigate("/library")}>
                                 Get in
-                        </button>
+                        </Button>
                     </header>
                     <p className="app-description">Book manager & Book shop</p>
                     <h2 className="phrase">
@@ -32,10 +33,10 @@ const Home = () => {
                     </h2>
                     <footer>
                         <p>Welcome to the most <i>infinite</i> library of your dreams. You'll never want to get out.</p>
-                        <button
+                        <Button
                         onClick={() => navigate("/library")}>
                                 Enter the library
-                        </button>
+                        </Button>
                     </footer>
                 </div>
                 <img src={Aside} 
