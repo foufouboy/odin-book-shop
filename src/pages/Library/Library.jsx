@@ -7,7 +7,7 @@ import FilterDropdown from "./FilterDropdown";
 import BookCard from "./BookCard";
 import { motion } from "framer-motion";
 import withAnimation from "../../components/withAnimation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getBooksFrom } from "../../utils/apiFunctions";
 
 const Library = () => {
@@ -15,17 +15,26 @@ const Library = () => {
     const [descriptionOpen, setDescriptionOpen] = useState(true);
     const [currentBooks, setCurrentBooks] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [query, setQuery] = useState("Hermann Hesse");
+
+    const searchRef = useRef(null);
+
+    const querySubmit = () => {
+        const newQuery = searchRef.current.value;
+        setQuery(newQuery);
+    }
 
     useEffect(() => {
         const actOnBooks = async () => {
             setLoading(true);
-            const books = await getBooksFrom("woman");
+            const books = await getBooksFrom(query);
+            console.log(books);
             setCurrentBooks(books);
             setLoading(false);
         }
 
         actOnBooks();
-    }, [])
+    }, [query])
 
     return (
         <StyledLibrary
@@ -34,7 +43,7 @@ const Library = () => {
         transition={{ duration: 0.6 }}
         exit={{ opacity: 0, x: -25 }}
         >
-            <Header/>
+            <Header searchRef={searchRef} querySubmit={querySubmit}/>
             {descriptionOpen && <Description 
             toggleHandler={() => setDescriptionOpen(false)}/>}
             <BabelCarousel/>

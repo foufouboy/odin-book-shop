@@ -1,18 +1,22 @@
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
+import { truncate } from "../../utils/misc-utils";
 import Sample from "../../assets/Home/aside-2.jpeg";
 
 const BookCard = ({book}) => {
+    const { title, author, rating, coverImg} = book;
+
+
     return (
         <StyledBookCard>
-            <img src={book.coverImg} alt="sample img"/>         
+            <img src={coverImg} alt="sample img"/>         
             <div className="book-info">
-                <p className="title">{book.title}</p>
-                <p className="author">{book.authors[0]}</p>
+                <p className="title">{truncate(title)}</p>
+                <p className="author">{truncate(author)}</p>
                 <span className="rating">
                     {Array(5).fill(0).map((_, i) => (
                         <AiFillStar key={"star-"+i}
-                        color={i < book.rating ? "yellow" : "grey"}/>
+                        color={i < rating ? "yellow" : "grey"}/>
                     ))}
                 </span>
             </div>
