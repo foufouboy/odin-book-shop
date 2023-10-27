@@ -93,7 +93,7 @@ const StyledLibrary = styled(motion.div)`
 
     @media (max-width: 500px) {
         .cards {
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
         .results {
