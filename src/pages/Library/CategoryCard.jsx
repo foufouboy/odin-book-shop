@@ -3,7 +3,6 @@ import { FaHeartbeat } from "react-icons/fa";
 
 const CategoryCard = ({data = null}) => {
     const { title, icon, color } = data;
-    console.log(color);
 
     return (
         <StyledCategoryCard color={color}>

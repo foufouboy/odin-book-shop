@@ -2,15 +2,30 @@ import styled from "styled-components";
 import Header from "./Header";
 import BabelCarousel from "./BabelCarousel";
 import Description from "./Description";
+import LoadingAnimation from "../../components/LoadingAnimation";
 import FilterDropdown from "./FilterDropdown";
 import BookCard from "./BookCard";
 import { motion } from "framer-motion";
 import withAnimation from "../../components/withAnimation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getBooksFrom } from "../../utils/apiFunctions";
 
 const Library = () => {
 
     const [descriptionOpen, setDescriptionOpen] = useState(true);
+    const [currentBooks, setCurrentBooks] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const actOnBooks = async () => {
+            setLoading(true);
+            const books = await getBooksFrom("woman");
+            setCurrentBooks(books);
+            setLoading(false);
+        }
+
+        actOnBooks();
+    }, [])
 
     return (
         <StyledLibrary
@@ -26,11 +41,19 @@ const Library = () => {
             <section className="results">
                 <h2>Everything</h2>
                 <FilterDropdown/>
-                <div className="cards">
-                    {Array(30).fill(0).map((_, i) => (
-                        <BookCard key={"book-card-" + i}/>
-                    ))}
-                </div>
+                    {loading ? (
+                        <LoadingAnimation/>
+                    ) : (
+                        <div className="cards">
+                            {
+                                currentBooks.map((book) => (
+                                    <BookCard 
+                                    key={book.id}
+                                    book={book}/>
+                                ))
+                            }
+                        </div>
+                    )}
             </section>
         </StyledLibrary>
     );

@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Title from "../../components/Title";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import { BiSolidBookHeart } from "react-icons/bi";
-import { motion } from "framer-motion";
 
 const Header = () => {
     return (

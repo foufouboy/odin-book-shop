@@ -2,19 +2,17 @@ import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 import Sample from "../../assets/Home/aside-2.jpeg";
 
-const BookCard = () => {
-    const rating = 5;
-
+const BookCard = ({book}) => {
     return (
         <StyledBookCard>
-            <img src={Sample} alt="sample img"/>         
+            <img src={book.coverImg} alt="sample img"/>         
             <div className="book-info">
-                <p className="title">The Big Chinchilla</p>
-                <p className="author">Manon Gicquel</p>
+                <p className="title">{book.title}</p>
+                <p className="author">{book.authors[0]}</p>
                 <span className="rating">
                     {Array(5).fill(0).map((_, i) => (
-                        <AiFillStar 
-                        color={i < rating ? "yellow" : "grey"}/>
+                        <AiFillStar key={"star-"+i}
+                        color={i < book.rating ? "yellow" : "grey"}/>
                     ))}
                 </span>
             </div>
