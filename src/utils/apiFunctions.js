@@ -22,16 +22,19 @@ export async function getBooksFrom(q) {
         const result = await fetch(baseLink + q);
         const data = await result.json();
         const { docs } = data;
+        console.log(docs)
 
-        return docs.map(book => ({
+        return docs.slice(0, 20).map(book => ({
             id: book.key,
-            authors: book.author_name,
+            author: book.author_name ? book.author_name[0] : 
+                book.publisher ? book.publisher[0] :
+                "Author unspecified.",
             coverImg: book.cover_i ? 
                 `${coverBaseLink}${book.cover_i}-L.jpg` :
                 NoImage,
             firstPublish: book.first_publish_year,
             title: book.title,
-            rating: book.ratings_average,
+            rating: ~~(book.ratings_sortable || book.ratings_average || 0),
         }));
     } catch (error) {
         console.log(error);
