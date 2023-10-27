@@ -24,6 +24,7 @@ const Library = () => {
             toggleHandler={() => setDescriptionOpen(false)}/>}
             <BabelCarousel/>
             <section className="results">
+                <h2>Everything</h2>
                 <FilterDropdown/>
                 <div className="cards">
                     {Array(30).fill(0).map((_, i) => (
@@ -45,8 +46,8 @@ const StyledLibrary = styled(motion.div)`
         background: #002A48;
 
         h2 {
-            margin-bottom: 30px;
-            font-size: 1.5rem;
+            font-size: 3.5rem;
+            margin-bottom: 5px;
         }
     }
 
@@ -61,6 +62,12 @@ const StyledLibrary = styled(motion.div)`
     @media (max-width: 500px) {
         .cards {
             grid-template-columns: 1fr 1fr;
+        }
+
+        .results {
+            h2 {
+                font-size: 2rem;
+            }
         }
     }
 `
