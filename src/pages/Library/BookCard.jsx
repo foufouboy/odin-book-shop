@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { AiFillStar } from "react-icons/ai";
 import { truncate } from "../../utils/misc-utils";
+import Image from "../../components/Image";
 import Sample from "../../assets/Home/aside-2.jpeg";
 
 const BookCard = ({book}) => {
@@ -9,7 +10,7 @@ const BookCard = ({book}) => {
 
     return (
         <StyledBookCard>
-            <img src={coverImg} alt="sample img"/>         
+            <Image src={coverImg} alt="sample img"/>         
             <div className="book-info">
                 <p className="title">{truncate(title)}</p>
                 <p className="author">{truncate(author)}</p>

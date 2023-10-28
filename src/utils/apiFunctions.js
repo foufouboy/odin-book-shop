@@ -31,7 +31,7 @@ export async function getBooksFrom(q) {
                 book.publisher ? book.publisher[0] :
                 "Author unspecified.",
             coverImg: book.cover_i ? 
-                `${coverBaseLink}${book.cover_i}-L.jpg` :
+                `${coverBaseLink}${book.cover_i}-M.jpg` :
                 NoImage,
             firstPublish: book.first_publish_year,
             title: book.title,
