@@ -1,7 +1,7 @@
 import NoImage from "../assets/no-image.jpg";
 
 const limit = 20;
-const baseLink = `https://openlibrary.org/search.json?sort=rating&limit=${limit}&q=`;
+const baseLink = `https://openlibrary.org/search.json?mode=everything&limit=${limit}&q=`;
 const coverBaseLink = `https://covers.openlibrary.org/b/id/`;
 const subjectList = [
     "science",
@@ -25,7 +25,8 @@ export async function getBooksFrom(q) {
         console.log(docs)
 
         return docs.slice(0, 20).map(book => ({
-            id: book.key,
+            id: book.isbn ? book.isbn[0] :
+                book.key,
             author: book.author_name ? book.author_name[0] : 
                 book.publisher ? book.publisher[0] :
                 "Author unspecified.",
@@ -34,7 +35,7 @@ export async function getBooksFrom(q) {
                 NoImage,
             firstPublish: book.first_publish_year,
             title: book.title,
-            rating: ~~(book.ratings_sortable || book.ratings_average || 0),
+            rating: ~~(book.ratings_average || book.ratings_sortable || 0),
         }));
     } catch (error) {
         console.log(error);

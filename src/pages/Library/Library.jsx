@@ -15,7 +15,7 @@ const Library = () => {
     const [descriptionOpen, setDescriptionOpen] = useState(true);
     const [currentBooks, setCurrentBooks] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [query, setQuery] = useState("Hermann Hesse");
+    const [query, setQuery] = useState("Belle du seigneur");
 
     const searchRef = useRef(null);
 
