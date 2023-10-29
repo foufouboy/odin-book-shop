@@ -28,9 +28,14 @@ const Library = () => {
 
     useEffect(() => {
         const actOnBooks = async () => {
+            if (error) {
+                setError(null);
+            }
+
             setLoading(true);
             const books = await getBooksFrom(query);
             console.log(books);
+
             setCurrentBooks(books);
             setLoading(false);
         }
@@ -56,17 +61,22 @@ const Library = () => {
             <section className="results">
                 <h2>Everything</h2>
                 <FilterDropdown/>
-                    {error && <SearchError error={error}/>}
-                    {loading ? (
+                    {error ? (
+                        <SearchError error={error}/>
+                    ) : loading ? (
                         <LoadingAnimation/>
                     ) : (
                         <div className="cards">
-                            {
+                            { currentBooks.length ? 
                                 currentBooks.map((book) => (
                                     <BookCard 
                                     key={book.id}
                                     book={book}/>
-                                ))
+                                )) : (
+                                <p className="no-results">
+                                    No results.
+                                </p>
+                                )
                             }
                         </div>
                     )}
@@ -80,7 +90,6 @@ const StyledLibrary = styled(motion.div)`
 
     .results {
         margin-top: 25px;
-        border-radius: 15px;
         padding: 30px;
         background: #002A48;
 
@@ -94,19 +103,37 @@ const StyledLibrary = styled(motion.div)`
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         margin: 0 auto;
-        margin-top: 15px;
+        margin-top: 20px;
         gap: 40px;
     }
 
+    .no-results {
+        padding: 10px 0;
+        padding-left: 5px;
+        font-size: 1.5rem;
+        font-family: "Source Code Pro";
+        opacity: .8;
+        width: 200px;
+    }
+
     @media (max-width: 500px) {
+        padding-bottom: 0;
+
         .cards {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
         .results {
+            margin-left: -25px;
+            margin-right: -25px;
+
             h2 {
                 font-size: 2rem;
             }
+        }
+
+        .no-results {
+            font-size: 1.2rem;
         }
     }
 `
