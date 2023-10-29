@@ -5,6 +5,7 @@ import Description from "./Description";
 import LoadingAnimation from "../../components/LoadingAnimation";
 import FilterDropdown from "./FilterDropdown";
 import BookCard from "./BookCard";
+import SearchError from "./SearchError";
 import { motion } from "framer-motion";
 import withAnimation from "../../components/withAnimation";
 import { useEffect, useRef, useState } from "react";
@@ -16,6 +17,7 @@ const Library = () => {
     const [currentBooks, setCurrentBooks] = useState([]);
     const [loading, setLoading] = useState(false);
     const [query, setQuery] = useState("Belle du seigneur");
+    const [error, setError] = useState(null)
 
     const searchRef = useRef(null);
 
@@ -33,7 +35,11 @@ const Library = () => {
             setLoading(false);
         }
 
-        actOnBooks();
+        actOnBooks()
+        .catch(error => {
+            setError(error);
+            setLoading(false);
+        });
     }, [query])
 
     return (
@@ -50,6 +56,7 @@ const Library = () => {
             <section className="results">
                 <h2>Everything</h2>
                 <FilterDropdown/>
+                    {error && <SearchError error={error}/>}
                     {loading ? (
                         <LoadingAnimation/>
                     ) : (

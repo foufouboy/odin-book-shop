@@ -19,6 +19,7 @@ const Router = () => {
         {
             path: "/library",
             element: <Library/>,
+            errorElement: <ErrorPage/>, 
         },
         {
             path: "/cart",
