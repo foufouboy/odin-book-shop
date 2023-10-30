@@ -5,7 +5,7 @@ import Image from "../../components/Image";
 import Sample from "../../assets/Home/aside-2.jpeg";
 
 const BookCard = ({book}) => {
-    const { title, author, rating, coverImg} = book;
+    const { title, author, rating, coverImg, firstPublish } = book;
 
 
     return (
@@ -14,12 +14,9 @@ const BookCard = ({book}) => {
             <div className="book-info">
                 <p className="title">{truncate(title)}</p>
                 <p className="author">{truncate(author)}</p>
-                <span className="rating">
-                    {Array(5).fill(0).map((_, i) => (
-                        <AiFillStar key={"star-"+i}
-                        color={i < rating ? "yellow" : "grey"}/>
-                    ))}
-                </span>
+                <p className="first-publish">
+                    {firstPublish}
+                </p>
             </div>
         </StyledBookCard>
     );
@@ -47,6 +44,11 @@ const StyledBookCard = styled.div`
         display: flex;
         flex-flow: column;
         gap: 5px;
+    }
+
+    .first-publish {
+        font-family: "Source Code Pro";
+        font-weight: bold;
     }
 
     .title {

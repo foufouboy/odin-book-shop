@@ -4,11 +4,9 @@ import Button from "../../components/Button";
 
 const FilterDropdown = () => {
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState("Popularity");
+    const [value, setValue] = useState("Pertinence");
 
     const handleOptionClick = (e) => {
-        console.log("in");
-        console.log(e.target.textContent);
         setValue(e.target.textContent);
         setOpen(false);
     }
@@ -26,7 +24,7 @@ const FilterDropdown = () => {
             </Button>
             {open && (
                 <ul>
-                    <li><Button onClick={(e) => handleOptionClick(e)}>Popularity</Button></li>
+                    <li><Button onClick={(e) => handleOptionClick(e)}>Pertinence</Button></li>
                     <li><Button onClick={(e) => handleOptionClick(e)}>Name</Button></li>
                     <li><Button onClick={(e) => handleOptionClick(e)}>Date</Button></li>
                     <li><Button onClick={(e) => handleOptionClick(e)}>Rating</Button></li>
@@ -37,7 +35,7 @@ const FilterDropdown = () => {
 }
 
 const StyledFilterDropdown = styled.div`
-    width: 200px;
+    width: 210px;
     position: relative;
 
     ul {

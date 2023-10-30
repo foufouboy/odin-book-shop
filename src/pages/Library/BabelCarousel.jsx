@@ -23,7 +23,7 @@ const getVisibleSlides = (width) => {
 }
 
 
-const BabelCarousel = () => {
+const BabelCarousel = ({currentCategory, handleCategoryClick}) => {
     const [visibleSlides, setVisibleSlides] = useState();
     const { width, height } = useWindowDimensions();
 
@@ -39,7 +39,7 @@ const BabelCarousel = () => {
             naturalSlideWidth={50}
             totalSlides={10}
             visibleSlides={visibleSlides}
-            dragEnabled={true}
+            dragEnabled={false}
             isIntrinsicHeight={true}>
                 <div className="category-and-buttons">
                     <h3>Categories</h3> 
@@ -50,8 +50,11 @@ const BabelCarousel = () => {
                 </div>
                 <Slider classNameTray="slides-container">
                     {categoriesData.map((data, i) => (
-                        <Slide index={i} key={i}>
-                            <CategoryCard data={data}/>
+                        <Slide index={i} key={"category-card" + i} className="slide">
+                            <CategoryCard 
+                            data={data} 
+                            isActive={currentCategory === data.value}
+                            handleCategoryClick={handleCategoryClick}/>
                         </Slide>
                     ))}
                 </Slider>
@@ -64,6 +67,12 @@ const StyledBabelCarousel = styled.div`
     margin-top: 30px;
     .slides-container {
         gap: 15px;
+    }
+
+    .focusRing___1airF.carousel__slide-focus-ring { outline: none !important; }
+    
+    .slide:focus {
+        outline: none;
     }
 
     .category-and-buttons {

@@ -3,7 +3,7 @@ import Title from "../../components/Title";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import { BiSolidBookHeart } from "react-icons/bi";
 
-const Header = ({searchRef, querySubmit}) => {
+const Header = ({searchRef, querySubmit, onQueryChange, query}) => {
     return (
         <StyledHeader>
             <Title animate={false}/>
@@ -13,6 +13,8 @@ const Header = ({searchRef, querySubmit}) => {
                 className="search-bar"
                 placeholder="Search for a book..."
                 ref={searchRef}
+                value={query}
+                onChange={(e) => onQueryChange(e)}
                 onKeyDown={(e) => {
                     e.key === "Enter" && querySubmit();
                 }}/>

@@ -16,14 +16,7 @@ const subjectList = [
     "poetry",
 ];
 
-export async function getBooksFrom(q) {
-    // Search among all books
-
-    const result = await fetch(baseLink + q);
-    const data = await result.json();
-    const { docs } = data;
-    console.log(docs)
-
+function formatedSearchResults(docs) {
     return docs.slice(0, 20).map(book => ({
         id: book.isbn ? book.isbn[0] :
             book.key,
@@ -39,11 +32,21 @@ export async function getBooksFrom(q) {
     }));
 }
 
-export async function getCategoryBooks(category) {
-    // get books by genre
+export async function getBooksFrom(q) {
+    // Search among all books
+
+    const result = await fetch(baseLink + q);
+    const data = await result.json();
+    const { docs } = data;
+
+    return formatedSearchResults(docs);
+
 }
 
-export async function getBooksCategoryFrom(category, q) {
-    // get books by genre AND query
+export async function getCategoryBooks(category, q) {
+    const result = await (fetch(`${baseLink}${q}&subject=${category}`));
+    const data = await result.json();
+    const { docs } = data;
 
+    return formatedSearchResults(docs);
 }
