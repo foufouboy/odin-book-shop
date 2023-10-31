@@ -9,9 +9,9 @@ import { motion } from "framer-motion";
 import Aside from "../../assets/Home/aside-0.jpg";
 import withAnimation from "../../components/withAnimation";
 
-const Home = () => {
+const Home = ({data}) => {
     const navigate = useNavigate();
-
+    console.log(data);
     return (
         <StyledHome
         initial={{ opacity: 0, x: -25 }}

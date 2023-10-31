@@ -1,51 +1,66 @@
 import styled from "styled-components";
-import Header from "./Header";
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+
+import Header from "../../components/Header";
 import BabelCarousel from "./BabelCarousel";
 import Description from "./Description";
 import LoadingAnimation from "../../components/LoadingAnimation";
 import FilterDropdown from "./FilterDropdown";
 import BookCard from "./BookCard";
 import SearchError from "./SearchError";
-import { motion } from "framer-motion";
 import withAnimation from "../../components/withAnimation";
-import { getCategoryName } from "./category-cards-data";
-import { useEffect, useRef, useState } from "react";
-import { getBooksFrom, getCategoryBooks } from "../../utils/apiFunctions";
 
-const Library = () => {
+import { getCategoryName } from "./category-cards-data";
+import { getBooksFrom, getCategoryBooks } from "../../utils/api-functions";
+
+const Library = ({data, setters}) => {
+
+    const { descOpen } = data;
+    const { setDescOpen } = setters;
 
     const [descriptionOpen, setDescriptionOpen] = useState(true);
-    const [currentBooks, setCurrentBooks] = useState([]);
-    const [currentCategory, setCurrentCategory] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [query, setQuery] = useState("Belle du seigneur");
-    const [error, setError] = useState(null)
-    const [newSearch, setNewSearch] = useState(false);
+    const [apiStatus, setApiStatus] = useState({
+        loading: false,
+        error: null,
+    });
+    const [search, setSearch] = useState({
+        query: "Belle du seigneur",
+        currentBooks: [],
+        currentCategory: null,
+        trigger: false,
+    });
 
     const searchRef = useRef(null);
+    const {query, currentBooks, currentCategory, trigger} = search;
+    const {loading, error} = apiStatus;
+
 
     const handleCategoryClick = (e) => {
         const category = e.target.getAttribute("data-value");
 
         if (category === currentCategory) {
-            setCurrentCategory(null);
+            setSearch(prev => ({...prev, currentCategory: null}));
         } else {
-            setCurrentCategory(category);
+            setSearch(prev => ({...prev, currentCategory: category}));
         }
+
+        setSearch(prev => ({...prev, trigger: !trigger}));
     }
 
     const querySubmit = () => {
         const newQuery = searchRef.current.value;
-        setNewSearch(!newSearch);
+        setSearch(prev => ({...prev, trigger: !trigger}));
     }
 
     useEffect(() => {
-        const actOnBooks = async () => {
-            if (error) setError(null);
+
+        const getBooks = async () => {
+            if (error) setApiStatus(prev => ({...prev, error: null}));
 
             let books;
 
-            setLoading(true);
+            setApiStatus(prev => ({...prev, loading: true}));
 
             if (currentCategory) {
                 books = await getCategoryBooks(currentCategory, query);
@@ -53,15 +68,15 @@ const Library = () => {
                 books = await getBooksFrom(query);
             }
 
-            setCurrentBooks(books);
+            setSearch(prev => ({...prev, currentBooks: books}));
         }
 
-        actOnBooks()
+        getBooks()
         .catch(error => {
             setError(error);
         })
-        .finally(() => setLoading(false));
-    }, [newSearch, currentCategory])
+        .finally(() => setApiStatus(prev => ({...prev, loading: false})));
+    }, [trigger])
 
     return (
         <StyledLibrary
@@ -73,9 +88,9 @@ const Library = () => {
             <Header 
             searchRef={searchRef} 
             querySubmit={querySubmit}
-            onQueryChange={(e) => setQuery(e.target.value)}
+            onQueryChange={(e) => setSearch(prev => ({...prev, query: e.target.value}))}
             query={query}/>
-            {descriptionOpen && <Description toggleHandler={() => setDescriptionOpen(false)}/>}
+            {descOpen && <Description toggleHandler={() => setDescOpen(false)}/>}
             <BabelCarousel 
             handleCategoryClick={handleCategoryClick}
             currentCategory={currentCategory}/>
@@ -95,9 +110,7 @@ const Library = () => {
                                     book={book}/>
                                 )) : (
                                 <p className="no-results">
-                                    {
-                                        query === "" ? "Query cannot be empty" : "No results"
-                                    }
+                                    No results.
                                 </p>
                                 )
                             }

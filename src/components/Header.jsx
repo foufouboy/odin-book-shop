@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Title from "../../components/Title";
+import Title from "./Title";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import { BiSolidBookHeart } from "react-icons/bi";
 

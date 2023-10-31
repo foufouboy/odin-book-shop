@@ -9,7 +9,8 @@ import Cart from "./pages/Cart/Cart";
 import ErrorPage from "./pages/ErrorPage";
 
 
-const Router = () => {
+const Router = ({data, setters}) => {
+    console.log(data);
     const router = createBrowserRouter([
         {
             path: "/",
@@ -18,7 +19,7 @@ const Router = () => {
         },
         {
             path: "/library",
-            element: <Library/>,
+            element: <Library data={data} setters={setters}/>,
             errorElement: <ErrorPage/>, 
         },
         {
