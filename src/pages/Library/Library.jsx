@@ -13,54 +13,52 @@ import withAnimation from "../../components/withAnimation";
 
 import { getCategoryName } from "./category-cards-data";
 import { getBooksFrom, getCategoryBooks } from "../../utils/api-functions";
+import getFilteredBooks from "./filtering-functions";
+import useFirstMount from "../../utils/useFirstRender";
 
 const Library = ({data, setters}) => {
 
-    const { descOpen } = data;
-    const { setDescOpen } = setters;
+    const {
+        descOpen,
+        savedBooks,
+        searchData: {
+            query,
+            currentBooks,
+            currentCategory,
+            trigger,
+            filter,
+        },
+        apiStatus: {
+            loading,
+            error,
+        }
+    } = data;
 
-    const [descriptionOpen, setDescriptionOpen] = useState(true);
-    const [apiStatus, setApiStatus] = useState({
-        loading: false,
-        error: null,
-    });
-    const [search, setSearch] = useState({
-        query: "Belle du seigneur",
-        currentBooks: [],
-        currentCategory: null,
-        trigger: false,
-    });
+    const {
+        setDescOpen,
+        setLoading,
+        setError,
+        setQuery,
+        setCurrentBooks,
+        setCurrentCategory,
+        setTrigger,
+        setFilter,
+        setSavedBooks
+    } = setters;
 
     const searchRef = useRef(null);
-    const {query, currentBooks, currentCategory, trigger} = search;
-    const {loading, error} = apiStatus;
-
-
-    const handleCategoryClick = (e) => {
-        const category = e.target.getAttribute("data-value");
-
-        if (category === currentCategory) {
-            setSearch(prev => ({...prev, currentCategory: null}));
-        } else {
-            setSearch(prev => ({...prev, currentCategory: category}));
-        }
-
-        setSearch(prev => ({...prev, trigger: !trigger}));
-    }
-
-    const querySubmit = () => {
-        const newQuery = searchRef.current.value;
-        setSearch(prev => ({...prev, trigger: !trigger}));
-    }
+    const firstRender = useFirstMount();
+    const displayedBooks = getFilteredBooks(currentBooks, filter);
 
     useEffect(() => {
+        if (firstRender) return;
 
         const getBooks = async () => {
-            if (error) setApiStatus(prev => ({...prev, error: null}));
+            if (error) setError(null);
 
             let books;
 
-            setApiStatus(prev => ({...prev, loading: true}));
+            setLoading(true);
 
             if (currentCategory) {
                 books = await getCategoryBooks(currentCategory, query);
@@ -68,15 +66,44 @@ const Library = ({data, setters}) => {
                 books = await getBooksFrom(query);
             }
 
-            setSearch(prev => ({...prev, currentBooks: books}));
+            setCurrentBooks(books);
         }
 
         getBooks()
         .catch(error => {
             setError(error);
         })
-        .finally(() => setApiStatus(prev => ({...prev, loading: false})));
+        .finally(() => setLoading(false));
     }, [trigger])
+
+
+    const handleCategoryClick = (e) => {
+        const category = e.target.getAttribute("data-value");
+
+        if (category === currentCategory) {
+            setCurrentCategory(null);
+        } else {
+            setCurrentCategory(category);
+        }
+
+        setTrigger();
+    }
+
+    const handleFilterChange = (e) => {
+        const filter = e.target.textContent;
+
+        console.log(filter);
+
+        filter === "Name" ? setFilter("name") :
+        filter === "Rating" ? setFilter("rating") :
+        filter === "Date" ? setFilter("date") :
+        setFilter("pertinence");
+    }
+
+    const querySubmit = () => {
+        const newQuery = searchRef.current.value;
+        setTrigger();
+    }
 
     return (
         <StyledLibrary
@@ -88,7 +115,7 @@ const Library = ({data, setters}) => {
             <Header 
             searchRef={searchRef} 
             querySubmit={querySubmit}
-            onQueryChange={(e) => setSearch(prev => ({...prev, query: e.target.value}))}
+            onQueryChange={(e) => setQuery(e.target.value)}
             query={query}/>
             {descOpen && <Description toggleHandler={() => setDescOpen(false)}/>}
             <BabelCarousel 
@@ -96,7 +123,7 @@ const Library = ({data, setters}) => {
             currentCategory={currentCategory}/>
             <section className="results">
                 <h2>{getCategoryName(currentCategory)}</h2>
-                <FilterDropdown/>
+                <FilterDropdown handleFilterChange={handleFilterChange}/>
                     {error ? (
                         <SearchError error={error}/>
                     ) : loading ? (
@@ -104,7 +131,7 @@ const Library = ({data, setters}) => {
                     ) : (
                         <div className="cards">
                             { currentBooks.length ? 
-                                currentBooks.map((book, i) => (
+                                displayedBooks.map((book, i) => (
                                     <BookCard 
                                     key={book.id + "-" + i}
                                     book={book}/>

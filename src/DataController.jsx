@@ -14,6 +14,7 @@ const DataController = ({children}) => {
         currentBooks: [],
         currentCategory: null,
         trigger: false,
+        filter: "pertinence",
     });
     const [savedBooks, setSavedBooks] = useLocalStorage("savedBooks", []);
 
@@ -23,6 +24,7 @@ const DataController = ({children}) => {
     const setCurrentBooks = (value) => setSearchData(prev => ({...prev, currentBooks: value}));
     const setCurrentCategory = (value) => setSearchData(prev => ({...prev, currentCategory: value}));
     const setTrigger = () => setSearchData(prev => ({...prev, trigger: !prev.trigger}));
+    const setFilter = (value) => setSearchData(prev => ({...prev, filter: value}));
 
     return (
         <>
@@ -41,6 +43,8 @@ const DataController = ({children}) => {
                 setCurrentBooks,
                 setCurrentCategory,
                 setTrigger,
+                setFilter,
+                setSavedBooks,
             }}/>
         </>
     );

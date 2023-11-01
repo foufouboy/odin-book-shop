@@ -10,7 +10,6 @@ import ErrorPage from "./pages/ErrorPage";
 
 
 const Router = ({data, setters}) => {
-    console.log(data);
     const router = createBrowserRouter([
         {
             path: "/",
