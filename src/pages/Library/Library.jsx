@@ -137,7 +137,7 @@ const Library = ({data, setters}) => {
                                     book={book}/>
                                 )) : (
                                 <p className="no-results">
-                                    No results.
+                                    Either no results or you didn't search anything :)
                                 </p>
                                 )
                             }
