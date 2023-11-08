@@ -1,21 +1,28 @@
 import styled from "styled-components";
 import { getCategoryName } from "./category-cards-data";
+import getFilteredBooks from "./filtering-functions";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import BabelCarousel from "./BabelCarousel";
 import FilterDropdown from "./FilterDropdown";
 import BookCard from "./BookCard";
 import LoadingAnimation from "../../components/LoadingAnimation";
+import withAnimation from "../../components/withAnimation";
 
 const InnerLibrary = ({data, setters}) => {
 
     const {
         descOpen,
-        currentCategory,
-        filter,
-        error,
-        loading,
-        currentBooks,
-        displayedBooks,
+        searchData: {
+            currentCategory,
+            filter,
+            currentBooks,
+        },
+        apiStatus: {
+            error,
+            loading,
+        },
     } = data;
 
     const {
@@ -24,6 +31,9 @@ const InnerLibrary = ({data, setters}) => {
         setFilter,
         setTrigger,
     } = setters;
+
+    const displayedBooks = getFilteredBooks(currentBooks, filter);
+    const navigate = useNavigate();
 
     const handleCategoryClick = (e) => {
         const category = e.target.getAttribute("data-value");
@@ -49,7 +59,12 @@ const InnerLibrary = ({data, setters}) => {
     }
 
     return (
-        <StyledInnerLibrary>
+        <StyledInnerLibrary
+        initial={{ opacity: 0, x: -25 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6 }}
+        exit={{ opacity: 0, x: -25 }}
+        >
             {
                 descOpen && 
                 <Description toggleHandler={() => setDescOpen(false)}/>
@@ -71,6 +86,7 @@ const InnerLibrary = ({data, setters}) => {
                             { currentBooks.length ? 
                                 displayedBooks.map((book, i) => (
                                     <BookCard 
+                                    onClick={() => navigate("book")}
                                     key={book.id + "-" + i}
                                     book={book}/>
                                 )) : (
@@ -86,7 +102,7 @@ const InnerLibrary = ({data, setters}) => {
     );
 }
 
-const StyledInnerLibrary = styled.div`
+const StyledInnerLibrary = styled(motion.div)`
     .results {
         margin-top: 25px;
         padding: 30px;
@@ -137,4 +153,4 @@ const StyledInnerLibrary = styled.div`
     }
 `;
 
-export default InnerLibrary;
+export default withAnimation(InnerLibrary);

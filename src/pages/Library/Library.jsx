@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Header from "../../components/Header";
 import InnerLibrary from "./InnerLibrary";
 import withAnimation from "../../components/withAnimation";
+import { Outlet } from "react-router-dom";
 
 import { getBooksFrom, getCategoryBooks } from "../../utils/api-functions";
 import getFilteredBooks from "./filtering-functions";
@@ -13,8 +14,6 @@ import useFirstMount from "../../utils/useFirstRender";
 const Library = ({data, setters}) => {
 
     const {
-        descOpen,
-        savedBooks,
         searchData: {
             query,
             currentBooks,
@@ -23,21 +22,16 @@ const Library = ({data, setters}) => {
             filter,
         },
         apiStatus: {
-            loading,
             error,
         }
     } = data;
 
     const {
-        setDescOpen,
         setLoading,
         setError,
         setQuery,
         setCurrentBooks,
-        setCurrentCategory,
         setTrigger,
-        setFilter,
-        setSavedBooks
     } = setters;
 
     const searchRef = useRef(null);
@@ -87,8 +81,11 @@ const Library = ({data, setters}) => {
             querySubmit={querySubmit}
             onQueryChange={(e) => setQuery(e.target.value)}
             query={query}/>
-
-            <InnerLibrary
+            <Outlet/>
+        </StyledLibrary>
+    );
+}
+            /*<InnerLibrary
             data={{
                 descOpen,
                 currentCategory,
@@ -103,11 +100,7 @@ const Library = ({data, setters}) => {
                 setCurrentCategory,
                 setFilter,
                 setTrigger,
-            }}/>
-
-        </StyledLibrary>
-    );
-}
+            }}/>*/
 
 const StyledLibrary = styled(motion.div)`
     padding: 30px 25px;

@@ -4,12 +4,12 @@ import { truncate } from "../../utils/misc-utils";
 import Image from "../../components/Image";
 import Sample from "../../assets/Home/aside-2.jpeg";
 
-const BookCard = ({book}) => {
+const BookCard = ({book, onClick}) => {
     const { title, author, rating, coverImg, firstPublish } = book;
 
 
     return (
-        <StyledBookCard>
+        <StyledBookCard onClick={onClick}>
             <Image src={coverImg} alt="sample img"/>         
             <div className="book-info">
                 <p className="title">{truncate(title)}</p>

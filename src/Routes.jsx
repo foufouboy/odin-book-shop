@@ -8,6 +8,7 @@ import Library from "./pages/Library/Library";
 import Book from "./pages/Book/Book";
 import Cart from "./pages/Cart/Cart";
 import ErrorPage from "./pages/ErrorPage";
+import InnerLibrary from "./pages/Library/InnerLibrary";
 
 
 const Router = ({data, setters}) => {
@@ -21,7 +22,8 @@ const Router = ({data, setters}) => {
             path: "/library",
             element: <Library data={data} setters={setters}/>,
             children: [
-                { path: "book", element: <Book/>},
+                {index: true, element: <InnerLibrary data={data} setters={setters}/>},
+                {path: "book", element: <Book/>}
             ]
         },
         {
