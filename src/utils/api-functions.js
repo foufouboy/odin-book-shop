@@ -39,6 +39,7 @@ export async function getBooksFrom(q) {
     const data = await result.json();
     const { docs } = data;
 
+    console.log(docs);
     return formatedSearchResults(docs);
 
 }

@@ -2,13 +2,17 @@ import { useState } from "react";
 import styled from "styled-components";
 import Button from "../../components/Button";
 
-const FilterDropdown = ({handleFilterChange}) => {
+const FilterDropdown = ({handleFilterChange, filter}) => {
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState("Pertinence");
+    
+    const value = filter === "name" ? "Name" :
+        filter === "rating" ? "Rating" :
+        filter === "date" ? "Date" :
+        "Pertinence"
+
 
     const handleOptionClick = (e) => {
         handleFilterChange(e);
-        setValue(e.target.textContent);
         setOpen(false);
     }
 

@@ -2,8 +2,11 @@ import styled from "styled-components";
 import Title from "./Title";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import { BiSolidBookHeart } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({searchRef, querySubmit, onQueryChange, query}) => {
+    const navigate = useNavigate();
+
     return (
         <StyledHeader>
             <Title animate={false}/>
@@ -20,7 +23,7 @@ const Header = ({searchRef, querySubmit, onQueryChange, query}) => {
                 }}/>
                 <AiOutlineFileSearch size="22px" onClick={querySubmit}/>
             </div>
-            <button className="cart-container">
+            <button className="cart-container" onClick={() => navigate("/cart")}>
                 <BiSolidBookHeart size="32px"/>
                 <span></span>
             </button>
