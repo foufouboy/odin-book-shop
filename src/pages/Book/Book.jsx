@@ -45,10 +45,7 @@ const StyledBook = styled(motion.div)`
    gap: 30px;
 
    .book-img {
-        img {
-            aspect-ratio: 2 / 3;
-            width: 100%;
-        }
+        height: 100%;
    }
 
    .title {

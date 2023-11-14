@@ -36,7 +36,6 @@ const Library = ({data, setters}) => {
 
     const searchRef = useRef(null);
     const firstRender = useFirstMount();
-    const displayedBooks = getFilteredBooks(currentBooks, filter);
 
     useEffect(() => {
         if (firstRender) return;
@@ -85,22 +84,6 @@ const Library = ({data, setters}) => {
         </StyledLibrary>
     );
 }
-            /*<InnerLibrary
-            data={{
-                descOpen,
-                currentCategory,
-                filter,
-                error,
-                loading,
-                currentBooks,
-                displayedBooks,
-            }}
-            setters={{
-                setDescOpen,
-                setCurrentCategory,
-                setFilter,
-                setTrigger,
-            }}/>*/
 
 const StyledLibrary = styled(motion.div)`
     padding: 30px 25px;
