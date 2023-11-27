@@ -18,8 +18,7 @@ const subjectList = [
 
 function formatedSearchResults(docs) {
     return docs.slice(0, 20).map(book => ({
-        id: book.isbn ? book.isbn[0] :
-            book.key,
+        id: book.edition_key[0], 
         author: book.author_name ? book.author_name[0] : 
             book.publisher ? book.publisher[0] :
             "Author unspecified.",

@@ -52,7 +52,7 @@ const Library = ({data, setters}) => {
             } else {
                 books = await getBooksFrom(query);
             }
-
+            console.log(books);
             setCurrentBooks(books);
         }
 

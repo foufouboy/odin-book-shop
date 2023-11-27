@@ -12,6 +12,7 @@ import InnerLibrary from "./pages/Library/InnerLibrary";
 
 
 const Router = ({data, setters}) => {
+
     const router = createBrowserRouter([
         {
             path: "/",
@@ -23,7 +24,10 @@ const Router = ({data, setters}) => {
             element: <Library data={data} setters={setters}/>,
             children: [
                 {index: true, element: <InnerLibrary data={data} setters={setters}/>},
-                {path: "book", element: <Book/>}
+                {path: "book", element: 
+                <Book 
+                book={data.bookToShow}
+                setSavedBooks={setters.setSavedBooks}/>}
             ]
         },
         {

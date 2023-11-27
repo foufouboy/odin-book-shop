@@ -87,7 +87,7 @@ const InnerLibrary = ({data, setters}) => {
                                 displayedBooks.map((book, i) => (
                                     <BookCard 
                                     onClick={() => navigate("book")}
-                                    key={book.id + "-" + i}
+                                    key={book.id}
                                     book={book}/>
                                 )) : (
                                 <p className="no-results">
