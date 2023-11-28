@@ -30,7 +30,7 @@ const DescriptionAccordion = ({children}) => {
             <div className="wrapper">
                 <div>
                     <p className={active ? "active" : ""}>
-        The first novel in nearly twenty years from the acclaimed actor/writer/director is a book about art and love, fame and heartbreak--a blistering story of a young man making his Broadway debut in Henry Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae iure vitae dolorem laboriosam harum, alias delectus animi, unde veritatis sed ab cumque dicta quis sequi saepe a! Iure, nesciunt laudantium? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus nulla officiis cumque qui nesciunt magni blanditiis, suscipit placeat cum consequuntur, quae, aliquid soluta quos aut debitis officia expedita harum voluptate. Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident ex nam placeat officiis, atque mollitia eius possimus exercitationem quod dolor non magni ab cumque explicabo illum amet nisi id veniam, reprehenderit molestias eveniet. Officia error placeat unde neque excepturi dicta doloribus quis quisquam nostrum, recusandae, molestiae veritatis sapiente, suscipit tempora.
+                        {children}
                     </p>
                     {(active || !isOverflown) ? "" : <span>...</span>}
                 </div>

@@ -24,11 +24,16 @@ const Router = ({data, setters}) => {
             element: <Library data={data} setters={setters}/>,
             children: [
                 {index: true, element: <InnerLibrary data={data} setters={setters}/>},
-                {path: "book", element: 
-                <Book 
-                book={data.bookToShow}
-                setSavedBooks={setters.setSavedBooks}/>}
+                {
+                    path: "book/:id", 
+                    element: <Book 
+                    booksData={data.searchData.currentBooks}
+                    setSavedBooks={setters.setSavedBooks}
+                    savedBooks={data.savedBooks}
+                    />
+                }
             ]
+
         },
         {
             path: "/cart",

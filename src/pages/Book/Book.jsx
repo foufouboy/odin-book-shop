@@ -1,22 +1,56 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import withAnimation from "../../components/withAnimation";
 import DescriptionAccordion from "./DescriptionAccordion";
+import Image from "../../components/Image";
 import Sample from "../../assets/book-sample.jpg";
 import { FaStar } from "react-icons/fa";
 import { IoLibrary } from "react-icons/io5";
 import { FiArrowLeft } from "react-icons/fi";
 
-const Book = () => {
+function createRatingStars(rating) {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+        if (i < rating) {
+            stars.push(<FaStar color="yellow"/>); 
+        } else {
+            stars.push(<FaStar color="grey"/>); 
+        }
+    }
+    return stars;
+}
+
+function getBookData(id, booksData) {
+    const bookData = booksData.find(book => book.id === id);
+    if (!bookData) {
+        throw Error("No matching book for that id!");
+    } else {
+        return bookData;
+    }
+}
+
+function isSaved(savedBooks, id) {
+    return savedBooks.some(book => book.id === id ? true : false);
+}
+
+const Book = ({ booksData, setSavedBooks, savedBooks }) => {
 
     const navigate = useNavigate();
-    const stars = [];
-    const [checked, setChecked] = useState(false);
+    const { id } = useParams();
+    const book = getBookData(id, booksData);
+    const stars = createRatingStars(book.rating);
+    const checked = isSaved(savedBooks, id);
 
-    for (let i = 5; i; i--) stars.push(<FaStar color="yellow"/>);
-    
+    const saveBook = () => {
+        setSavedBooks(prev => [...prev, book]);
+    }
+
+    const unsaveBook = () => {
+        setSavedBooks(prev => prev.filter(book => book.id !== id));
+    }
+
     return (
         <StyledBook 
         initial={{ opacity: 0, x: 25 }}
@@ -33,14 +67,14 @@ const Book = () => {
             <div className="book-page">
                 <div className="main-section">
                     <div className="book-img">
-                        <img src={Sample} alt="book image" />
+                        <Image src={book.coverImg} alt="book image" />
                     </div>
                     <div className="book-caracteristics">
                         <div className="main-caract">
-                            <h2 className="title">A Bright Ray of Darkness</h2>
+                            <h2 className="title">{book.title}</h2>
                             <div className="author-and-date">
-                                <h3 className="author">— Ethan Hawke</h3>
-                                <h3 className="first-publish">1999</h3>
+                                <h3 className="author">— {book.author}</h3>
+                                <h3 className="first-publish">{book.firstPublish}</h3>
                             </div>
                             <div className="rating">
                                 {stars.map((star, index) => (
@@ -50,11 +84,13 @@ const Book = () => {
                         </div>
                         <button 
                         className={"wanna-read" + (checked ? " checked" : "")}
-                        onClick={() => setChecked(!checked)}>
+                        onClick={() => {
+                            checked ? unsaveBook() : saveBook();
+                        }}>
                             {checked ? "Book in list!" : "Add to list"}
                         </button>
                         <DescriptionAccordion>
-        The first novel in nearly twenty years from the acclaimed actor/writer/director is a book about art and love, fame and heartbreak--a blistering story of a young man making his Broadway debut in Henry IV just as his marriage implodes. A bracing meditation on fame and celebrity, and the redemptive, healing power of art; a portrait of the ravages of disappointment and divorce; a poignant consideration of the rites of fatherhood and manhood; a novel soaked in rage and sex, longing and despair; and a passionate love letter to the world of theater, A Bright Ray of Darkness showcases Ethan Hawke's gifts as a novelist as never before. Hawke's narrator is a young man in torment, disgusted with himself after the collapse of his marriage, still half-hoping for a reconciliation that would allow him to forgive himself and move on as he clumsily, and sometimes hilariously, tries to manage the wreckage of his personal life with whiskey and sex. What saves him is theater: in particular, the challenge of performing the role of Hotspur in a production of Henry IV under the leadership of a brilliant director, helmed by one of the most electrifying--and narcissistic--Falstaff's of all time. Searing, raw, and utterly transfixing, A Bright Ray of Darkness is a novel about shame and beauty and faith, and the moral power of art.
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quod eius iure voluptas ab eos deserunt exercitationem consequatur velit, dicta incidunt dolor nostrum, sed numquam quidem, amet sit adipisci sapiente obcaecati! Consectetur facere dolores quis, laborum porro, explicabo corporis nihil sequi ab enim alias similique cumque praesentium amet et nemo? Aut illum sed nostrum minima quasi consequuntur velit, animi quidem. Obcaecati?
                         </DescriptionAccordion>
                     </div>
                 </div>

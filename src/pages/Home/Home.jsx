@@ -7,11 +7,12 @@ import Title from "../../components/Title";
 import Button from "../../components/Button";
 import { motion } from "framer-motion";
 import Aside from "../../assets/Home/aside-0.jpg";
+import Image from "../../components/Image";
 import withAnimation from "../../components/withAnimation";
 
-const Home = ({data}) => {
+const Home = () => {
     const navigate = useNavigate();
-    console.log(data);
+
     return (
         <StyledHome
         initial={{ opacity: 0, x: -25 }}
@@ -39,7 +40,7 @@ const Home = ({data}) => {
                         </Button>
                     </footer>
                 </div>
-                <img src={Aside} 
+                <Image src={Aside} 
                 alt={"illustration image"}/>
             </div>
         </StyledHome>       
