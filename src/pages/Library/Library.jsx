@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Header from "../../components/Header";
 import InnerLibrary from "./InnerLibrary";
 import withAnimation from "../../components/withAnimation";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import { getBooksFrom, getCategoryBooks } from "../../utils/api-functions";
 import getFilteredBooks from "./filtering-functions";
@@ -23,7 +23,8 @@ const Library = ({data, setters}) => {
         },
         apiStatus: {
             error,
-        }
+        },
+        savedBooks,
     } = data;
 
     const {
@@ -36,6 +37,8 @@ const Library = ({data, setters}) => {
 
     const searchRef = useRef(null);
     const firstRender = useFirstMount();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         if (firstRender) return;
@@ -65,6 +68,9 @@ const Library = ({data, setters}) => {
 
     const querySubmit = () => {
         const newQuery = searchRef.current.value;
+        if (location.pathname !== "/library/") {
+            navigate("/library/");
+        }
         setTrigger();
     }
 
@@ -79,7 +85,8 @@ const Library = ({data, setters}) => {
             searchRef={searchRef} 
             querySubmit={querySubmit}
             onQueryChange={(e) => setQuery(e.target.value)}
-            query={query}/>
+            query={query}
+            savedBooks={savedBooks}/>
             <Outlet/>
         </StyledLibrary>
     );

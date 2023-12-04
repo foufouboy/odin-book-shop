@@ -1,4 +1,5 @@
 import NoImage from "../assets/no-image.jpg";
+import { generateRandomReadTime } from "./misc-utils";
 
 const limit = 20;
 const bookBaseLink = "https://openlibrary.org/books/";
@@ -29,6 +30,7 @@ function formatedSearchResults(docs) {
         firstPublish: book.first_publish_year,
         title: book.title,
         rating: ~~(book.ratings_average || book.ratings_sortable || 0),
+        fakeReadingTime: generateRandomReadTime(book.title),
     }));
 }
 

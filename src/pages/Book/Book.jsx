@@ -32,7 +32,7 @@ function getBookData(id, booksData) {
 }
 
 function isSaved(savedBooks, id) {
-    return savedBooks.some(book => book.id === id ? true : false);
+    return savedBooks.some(book => book.id === id);
 }
 
 const Book = ({ booksData, setSavedBooks, savedBooks }) => {
@@ -45,10 +45,12 @@ const Book = ({ booksData, setSavedBooks, savedBooks }) => {
 
     const saveBook = () => {
         setSavedBooks(prev => [...prev, book]);
+        console.log(savedBooks);
     }
 
     const unsaveBook = () => {
         setSavedBooks(prev => prev.filter(book => book.id !== id));
+        console.log(savedBooks);
     }
 
     return (
