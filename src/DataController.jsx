@@ -10,7 +10,7 @@ const DataController = ({children}) => {
         error: null,
     });
     const [searchData, setSearchData] = useLocalStorage("searchData", {
-        query: "Belle du seigneur",
+        query: "",
         currentBooks: [],
         currentCategory: null,
         trigger: false,
