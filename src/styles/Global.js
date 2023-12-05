@@ -37,6 +37,7 @@ const GlobalStyles = createGlobalStyle`
         --peach: #D6CC99;
         --beige: #FDE5D4;
         --orange: #FF8080;
+        --lighter-dark-blue: #002A48;
     }
 `
 

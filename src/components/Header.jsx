@@ -25,7 +25,7 @@ const Header = ({searchRef, querySubmit, onQueryChange, query, savedBooks}) => {
             </div>
             <button className="cart-container" onClick={() => navigate("/cart")}>
                 <BiSolidBookHeart size="32px"></BiSolidBookHeart>
-                {savedBooks.length && <span></span>}
+                <span className={savedBooks.length ? "active" : "unactive"}></span>
             </button>
         </StyledHeader>
 
@@ -101,10 +101,13 @@ input:focus + svg,
         display: flex;
         justify-content: center;
         align-items: center;
-        background:#18B0AB;
         width: 6px;
         height: 6px;
         border-radius: 100%;
+
+        &.active {
+            background:#18B0AB;
+        }
     }
 }
 
