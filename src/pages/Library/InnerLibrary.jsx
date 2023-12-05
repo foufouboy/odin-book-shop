@@ -9,6 +9,7 @@ import FilterDropdown from "./FilterDropdown";
 import BookCard from "./BookCard";
 import LoadingAnimation from "../../components/LoadingAnimation";
 import withAnimation from "../../components/withAnimation";
+import Description from "./Description";
 
 const InnerLibrary = ({data, setters}) => {
 
