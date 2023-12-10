@@ -111,7 +111,7 @@ const StyledCart = styled(motion.div)`
 
         .no-items {
             background: var(--lighter-dark-blue);
-            padding: 25px 0;
+            padding: 25px;
             display: flex;
             flex-flow: column;
             align-items: center;
@@ -119,6 +119,7 @@ const StyledCart = styled(motion.div)`
             h3 {
                 font-size: 2.3rem;
                 color: var(--peach);
+                text-align: center
             }
 
             p {
