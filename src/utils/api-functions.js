@@ -20,7 +20,7 @@ const subjectList = [
 
 function formatedSearchResults(docs) {
 	return docs.slice(0, 20).map((book) => ({
-		id: book.key + book.title,
+		id: book.title,
 		author: book.author_name
 			? book.author_name[0]
 			: book.publisher
